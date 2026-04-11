@@ -4,36 +4,35 @@
 
 :root {
   --font-size: 16px;
+  --color-primary: #2d5016;
+  --color-primary-light: #4a7a2b;
+  --color-accent: #c4a35a;
+  --color-cream: #fdfbf7;
+  --color-warm-white: #faf8f4;
+  --color-charcoal: #1a1a1a;
+  --color-muted: #6b6b6b;
+  --color-border: #e8e4dc;
 }
 
 @layer base {
   * {
-    @apply border border-gray-200;
+    border-color: var(--color-border);
   }
 
   body {
-    @apply bg-white text-gray-800;
-    font-family: 'Roboto', sans-serif;
+    background-color: var(--color-cream);
+    color: var(--color-charcoal);
+    font-family: 'DM Sans', sans-serif;
   }
 
   html {
     font-size: var(--font-size);
   }
 
-  h1 {
-    @apply text-2xl font-medium leading-normal;
-  }
-
-  h2 {
-    @apply text-xl font-medium leading-normal;
-  }
-
-  h3 {
-    @apply text-lg font-medium leading-normal;
-  }
-
-  h4 {
-    @apply text-base font-medium leading-normal;
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Playfair Display', serif;
+    font-weight: 600;
+    letter-spacing: -0.02em;
   }
 
   label {
@@ -44,14 +43,14 @@
     @apply text-base font-medium leading-normal;
   }
 
-  input {
-    @apply text-base font-normal leading-normal;
+  input, textarea {
+    font-family: 'DM Sans', sans-serif;
   }
 
-  @keyframes fadeIn {
+  @keyframes fadeInUp {
     from {
       opacity: 0;
-      transform: translateY(-10px);
+      transform: translateY(20px);
     }
     to {
       opacity: 1;
@@ -59,8 +58,37 @@
     }
   }
 
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  @keyframes slideInLeft {
+    from {
+      opacity: 0;
+      transform: translateX(-30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes subtlePulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.02); }
+  }
+
+  .animate-fadeInUp {
+    animation: fadeInUp 0.6s ease-out forwards;
+  }
+
   .animate-fadeIn {
-    animation: fadeIn 0.3s ease-out;
+    animation: fadeIn 0.4s ease-out forwards;
+  }
+
+  .animate-slideInLeft {
+    animation: slideInLeft 0.5s ease-out forwards;
   }
 
   html {
@@ -68,50 +96,75 @@
   }
 
   ::-webkit-scrollbar {
-    width: 8px;
+    width: 6px;
   }
 
   ::-webkit-scrollbar-track {
-    background: #f1f1f1;
+    background: var(--color-warm-white);
   }
 
   ::-webkit-scrollbar-thumb {
-    background: #888;
-    border-radius: 4px;
+    background: var(--color-primary-light);
+    border-radius: 3px;
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    background: #555;
+    background: var(--color-primary);
   }
 }
 
 @layer components {
   .page-shell {
-    @apply max-w-[900px] mx-auto px-4 md:px-6;
+    @apply max-w-[1000px] mx-auto px-5 md:px-8;
   }
 
   .section-shell {
-    @apply border-b border-gray-300;
+    border-bottom: none;
   }
 
   .surface-card {
-    @apply bg-white rounded shadow-sm overflow-hidden;
+    @apply bg-white rounded-lg shadow-sm overflow-hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
   }
 
   .primary-action {
-    @apply bg-[#4e8b2f] text-white rounded transition-colors hover:bg-[#3d6e25];
+    background-color: var(--color-primary);
+    color: white;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+  }
+
+  .primary-action:hover {
+    background-color: var(--color-primary-light);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(45, 80, 22, 0.25);
   }
 
   .secondary-action {
-    @apply bg-white border border-gray-300 text-gray-800 rounded transition-colors hover:bg-gray-50;
+    @apply bg-white border text-gray-800 rounded transition-colors hover:bg-gray-50;
+    border-color: var(--color-border);
   }
 
   .header-link-light {
-    @apply font-normal text-sm leading-5 transition-colors text-gray-800 hover:text-[#4e8b2f];
+    font-weight: 500;
+    font-size: 15px;
+    transition: color 0.2s ease;
+    color: var(--color-charcoal);
+  }
+
+  .header-link-light:hover {
+    color: var(--color-primary);
   }
 
   .header-link-dark {
-    @apply font-normal text-sm leading-5 transition-colors text-white hover:text-green-100;
+    font-weight: 500;
+    font-size: 15px;
+    transition: all 0.2s ease;
+    color: white;
+  }
+
+  .header-link-dark:hover {
+    color: var(--color-accent);
   }
 
   .form-label {
@@ -119,7 +172,14 @@
   }
 
   .form-input {
-    @apply w-full bg-white border border-gray-300 rounded text-sm md:text-base leading-6 focus:outline-none focus:ring-2 focus:border-transparent transition-all;
+    @apply w-full bg-white rounded text-sm md:text-base leading-6 focus:outline-none transition-all;
+    border: 1px solid var(--color-border);
+    padding: 12px 16px;
+  }
+
+  .form-input:focus {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(45, 80, 22, 0.1);
   }
 
   .auth-card {

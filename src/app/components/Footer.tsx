@@ -1,62 +1,70 @@
-import type { NavigationTarget } from '../types/navigation';
-import imgW2 from "../../assets/20b22656c1f0b1195838e9b235090e312abb18b3.png";
-import imgF2 from "../../assets/44a90b9740851d3caba3583e570158fc3362f6da.png";
-import imgI2 from "../../assets/7db9fceadcd3ad4d0413f2570b0f25371b7f013d.png";
-
 import { Instagram, Facebook, MessageCircle } from "lucide-react";
+import type { NavigationTarget } from '../types/navigation';
 
 interface FooterProps {
   onNavigate: (section: NavigationTarget) => void;
 }
 
-export default function Footer({ onNavigate }: FooterProps) {
-  const handleNavClick = (section: NavigationTarget) => onNavigate(section);
-
+export default function Footer({ onNavigate: _onNavigate }: FooterProps) {
   return (
-    <footer className="bg-white border-t border-[#d9d9d9]">
-      <div className="max-w-[900px] mx-auto px-4 md:px-6">
-        <div className="py-4 md:py-6 border-b border-[#d9d9d9]">
-          <p className="font-extrabold text-[#222] text-[13px] md:text-[14px] leading-[20px] mb-3 md:mb-4 text-center md:text-left">Síguenos en redes sociales</p>
-          <div className="flex gap-3 md:gap-4 justify-center md:ml-[330px]">
-          <a
-            href="#"
-            className="text-[#4e8b2f] hover:opacity-80 transition-colors"
-            aria-label="Instagram"
-          >
-            <Instagram className="w-6 h-6" />
-          </a>
-          <a
-            href="#"
-            className="text-[#4e8b2f] hover:opacity-80 transition-colors"
-            aria-label="Facebook"
-          >
-            <Facebook className="w-6 h-6" />
-          </a>
-          <a
-            href="#"
-            className="text-[#4e8b2f] hover:opacity-80 transition-colors"
-            aria-label="WhatsApp"
-          >
-            <MessageCircle className="w-6 h-6" />
-          </a>
-
+    <footer className="py-10 md:py-14" style={{ backgroundColor: '#1a1a1a', color: '#faf8f4' }}>
+      <div className="page-shell">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-10">
+          <div className="text-center md:text-left">
+            <h3 
+              className="text-lg mb-3" 
+              style={{ fontFamily: "'Playfair Display', serif" }}
+            >
+              La Vaquería
+            </h3>
+            <p className="text-sm leading-relaxed opacity-70">
+              Lácteos frescos directo del campo a tu mesa. 
+              Calidad premium con delivery en 24 horas.
+            </p>
+          </div>
+          
+          <div className="text-center">
+            <h4 className="text-sm font-semibold uppercase tracking-wider mb-4 opacity-80">Síguenos</h4>
+            <div className="flex gap-4 justify-center">
+              <a
+                href="#"
+                className="p-2 rounded-full transition-all hover:bg-white/10"
+                style={{ color: '#c4a35a' }}
+                aria-label="Instagram"
+              >
+                <Instagram className="w-5 h-5" />
+              </a>
+              <a
+                href="#"
+                className="p-2 rounded-full transition-all hover:bg-white/10"
+                style={{ color: '#c4a35a' }}
+                aria-label="Facebook"
+              >
+                <Facebook className="w-5 h-5" />
+              </a>
+              <a
+                href="#"
+                className="p-2 rounded-full transition-all hover:bg-white/10"
+                style={{ color: '#c4a35a' }}
+                aria-label="WhatsApp"
+              >
+                <MessageCircle className="w-5 h-5" />
+              </a>
+            </div>
+          </div>
+          
+          <div className="text-center md:text-right">
+            <h4 className="text-sm font-semibold uppercase tracking-wider mb-4 opacity-80">Contacto</h4>
+            <p className="text-sm opacity-70 mb-1">+591 67023053</p>
+            <p className="text-sm opacity-70">hola@lavaqueria.com</p>
           </div>
         </div>
-        <div className="py-3 md:py-4">
-          <div className="border-b border-[#d9d9d9] pb-3 md:pb-4 mb-3 md:mb-4">
-            <p className="font-normal text-[#222] text-[11px] md:text-[11.959px] leading-[16px] text-center md:text-left">© 2026 Startup CRM. Todos los derechos reservados.</p>
-          </div>
-          <div className="flex flex-wrap gap-2 justify-center md:justify-end text-[11px] md:text-[12px] leading-[16px] text-[#222]">
-            <button onClick={() => handleNavClick('terminos')} className="link_terminos hover:text-[#4e8b2f] transition-colors">Términos</button>
-            <span>|</span>
-            <button onClick={() => handleNavClick('privacidad')} className="link_privacidad hover:text-[#4e8b2f] transition-colors">Privacidad</button>
-            <span>|</span>
-            <button onClick={() => handleNavClick('contacto')} className="link_contacto hover:text-[#4e8b2f] transition-colors">Contacto</button>
-          </div>
+        
+        <div className="mt-10 pt-6 text-center" style={{ borderTop: '1px solid rgba(255,255,255,0.1)' }}>
+          <p className="text-xs opacity-50">
+            © 2026 La Vaquería. Todos los derechos reservados.
+          </p>
         </div>
-
-
-
       </div>
     </footer>
   );

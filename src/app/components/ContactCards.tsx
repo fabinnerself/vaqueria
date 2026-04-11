@@ -1,59 +1,12 @@
-import { useState, ReactNode, useEffect, useCallback } from 'react';
-import Image from 'next/image';
-import imgImage from "../../assets/whatsapp-icon.png";
-import imgImage1 from "../../assets/qr-background.png";
-import imgQr2 from "../../assets/qr-code.png";
+import { useState } from 'react';
 
-const LABEL_CLASS = "block font-normal text-[#222] text-[12px] leading-[16px] mb-2";
-const INPUT_CLASS = "text_input w-full bg-white border border-[#d9d9d9] rounded-[4px] px-3 py-2 text-[#222] text-[14px] leading-[20px] mb-2 focus:outline-none focus:ring-2";
+const LABEL_CLASS = "block text-sm font-medium mb-2 text-gray-700";
+const INPUT_STYLE = "w-full bg-white border rounded-lg px-4 py-3 text-gray-800 text-sm mb-3 focus:outline-none transition-all";
+const BUTTON_STYLE = "w-full py-3 rounded-lg font-semibold text-sm transition-all duration-300";
 
-function CardHeader({ bgColor, icon, title }: { bgColor: string; icon: ReactNode; title: string }) {
-  return (
-    <div className={`${bgColor} px-4 py-3 flex items-center gap-3`}>
-      {icon}
-      <h3 className="font-bold text-white text-[13.8px] leading-[20px]">{title}</h3>
-    </div>
-  );
-}
-
-function FormField({ label, ...props }: React.InputHTMLAttributes<HTMLInputElement | HTMLTextAreaElement> & { label: string }) {
-  return (
-    <>
-      <label className={LABEL_CLASS}>{label}</label>
-      <input {...props} className={`${INPUT_CLASS} ${props.className || ''}`} />
-    </>
-  );
-}
-
-function SubmitButton({ bgColor, hoverColor, children, disabled, ...props }: React.ButtonHTMLAttributes<HTMLButtonElement> & { bgColor: string; hoverColor: string }) {
-  return (
-    <button {...props} disabled={disabled} className={`btn_primary rounded-[4px] ${bgColor} text-white font-bold text-[13.72px] leading-[20px] w-full py-2 mt-4 transition-colors hover:${hoverColor} ${disabled ? 'opacity-50 cursor-not-allowed' : ''}`}>
-      {children}
-    </button>
-  );
-}
-
-const WhatsAppIcon = () => (
-  <svg className="w-[14px] h-[14px]" fill="none" viewBox="0 0 14 14">
-    <path d="M7 0C3.13401 0 0 3.13401 0 7C0 8.38751 0.437511 9.67084 1.18335 10.7292L0.408348 13.2083C0.350015 13.3833 0.408348 13.5875 0.554181 13.7042C0.641681 13.7625 0.758348 13.8208 0.875015 13.8208C0.933348 13.8208 1.02085 13.8208 1.07918 13.7917L3.67501 13.125C4.67501 13.7625 5.79168 14.0583 7 14.0583C10.866 14.0583 14 10.9243 14 7.05834C14 3.16251 10.866 0 7 0ZM10.2083 9.69917C10.0333 10.2783 9.19584 10.7708 8.53751 10.9167C8.12501 11.0042 7.58334 11.0917 5.55834 10.2492C3.12501 9.19917 1.54168 6.74584 1.40585 6.54251C1.29918 6.36751 0.495849 5.30001 0.495849 4.20251C0.495849 3.10501 1.06668 2.57251 1.27001 2.34001C1.44501 2.16501 1.70585 2.07751 1.95751 2.07751C2.03585 2.07751 2.11418 2.07751 2.16335 2.10668C2.36668 2.11584 2.46335 2.13418 2.58918 2.42918C2.76418 2.84168 3.18585 3.93918 3.24418 4.04584C3.30251 4.15251 3.36085 4.28834 3.29168 4.47251C3.22251 4.65667 3.16418 4.73501 3.02835 4.89084C2.89251 5.04667 2.74585 5.23084 2.61918 5.35667C2.48335 5.49251 2.33668 5.62834 2.50168 5.89834C2.66668 6.16834 3.19501 7.02584 3.96835 7.70001C4.94335 8.55751 5.73001 8.85251 6.01585 8.96918C6.21918 9.05668 6.45168 9.02751 6.61668 8.84334C6.81085 8.64001 7.01418 8.29168 7.23668 7.94334C7.40251 7.67334 7.60585 7.61501 7.86668 7.70251C8.13668 7.79001 9.22501 8.32251 9.52001 8.46751C9.81501 8.61251 10.0042 8.69084 10.0625 8.80751C10.1208 8.92418 10.1208 9.33668 10.0042 9.82918C9.88751 10.3217 9.73085 10.5542 10.2083 9.69917Z" fill="#4E8B2F" />
-  </svg>
-);
-
-const EmailIcon = () => (
-  <svg className="w-[18px] h-[18px]" fill="none" viewBox="0 0 18 18">
-    <path d="M3 3H15C15.825 3 16.5 3.675 16.5 4.5V13.5C16.5 14.325 15.825 15 15 15H3C2.175 15 1.5 14.325 1.5 13.5V4.5C1.5 3.675 2.175 3 3 3Z" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-    <path d="M16.5 4.5L9 9.75L1.5 4.5" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-  </svg>
-);
-
-const SmsIcon = () => (
-  <svg className="w-[18px] h-[18px]" fill="none" viewBox="0 0 18 18">
-    <g clipPath="url(#clip0_sms)">
-      <path d="M15.75 2.25H2.25C1.42157 2.25 0.75 2.92157 0.75 3.75V12.75C0.75 13.5784 1.42157 14.25 2.25 14.25H4.5V16.5L8.25 14.25H15.75C16.5784 14.25 17.25 13.5784 17.25 12.75V3.75C17.25 2.92157 16.5784 2.25 15.75 2.25Z" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-    </g>
-    <defs>
-      <clipPath id="clip0_sms"><rect fill="white" height="18" width="18" /></clipPath>
-    </defs>
+const WhatsAppIcon = ({ className = "w-5 h-5" }: { className?: string }) => (
+  <svg className={className} fill="currentColor" viewBox="0 0 24 24">
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-.61-.318-.91-.492-.309-.187-.537-.349-.749-.609-.174-.225-.063-.375.043-.515.058-.094.148-.197.297-.297.297-.149.297-.297.297-.495 0-.149-.149-.372-.223-.515-.074-.148-.372-.297-.743-.496-.609-.334-1.448-.521-1.973-.521-.297 0-.595.074-.866.223-.271.148-.441.347-.595.571-.148.223-.521.595-.521.743 0,.223.297.495.595.743.297.248.595.372.866.521.223.149.372.223.495.297.123.074.223.148.347.198.123.05.223.074.371.074.149 0 .372-.025.569-.149.197-.124.521-.372.743-.595.222-.223.347-.347.495-.521.148-.174.297-.297.495-.347.198-.05.371-.074.495-.074zM12 22.155c-1.102 0-2.204-.296-3.204-.888-1.93-1.148-3.112-3.13-3.429-5.408-.108-.775-.108-1.584.024-2.373.131-.789.39-1.518.765-2.159l.005.005c.373-.639.848-1.223 1.405-1.725l.003.003c.553-.499 1.195-.905 1.902-1.199.706-.294 1.464-.459 2.241-.459.777 0 1.535.165 2.241.459.707.294 1.349.7 1.902 1.199l.003-.003c.557.502 1.032 1.086 1.405 1.725l.005-.005c.375.641.634 1.37.765 2.159.132.789.132 1.598.024 2.373-.317 2.278-1.499 4.26-3.429 5.408-1 .592-2.102.888-3.204.888h-.024zM8.235 6.938c-.223-.446-.223-.968 0-1.414l1.553-1.576c.217-.221.48-.333.762-.333.282 0 .545.112.762.333l.762.771c.223.224.38.499.451.795.07.296.035.609-.103.889-.138.28-.379.502-.672.619l-.904.356c-.293.115-.493.371-.493.663v1.065c0 .292.2.548.493.663l.904.356c.293.115.534.338.672.619.138.28.173.593.103.889-.071.296-.228.571-.451.795l-.762.771c-.217.221-.48.333-.762.333-.282 0-.545-.112-.762-.333l-1.553-1.576c-.223-.446-.223-.968 0-1.414.223-.447.609-.765 1.068-.883l1.092-.282c.283-.073.483-.329.493-.629v-.356c-.01-.3-.21-.556-.493-.629l-1.092-.282c-.459-.118-.845-.436-1.068-.883z"/>
   </svg>
 );
 
@@ -65,22 +18,7 @@ export default function ContactCards() {
   const [emailSent, setEmailSent] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  const isValidEmail = (email: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-
-  const clearEmailFields = useCallback(() => {
-    setEmailData({ email: '', subject: '', message: '' });
-    setEmailSent(false);
-  }, []);
-
-  useEffect(() => {
-    if (emailSent) {
-      const timer = setTimeout(() => {
-        setStatusMessage('');
-        clearEmailFields();
-      }, 8000);
-      return () => clearTimeout(timer);
-    }
-  }, [emailSent, clearEmailFields]);
+  const handleWhatsAppOpen = () => window.open('https://api.whatsapp.com/send?phone=+59167023053&text=Hola,%20quiero%20consultar%20sobre%20tus%20productos', '_blank');
 
   const handleEmailSubmit = async () => {
     setEmailError('');
@@ -88,8 +26,8 @@ export default function ContactCards() {
       setEmailError('Todos los campos son requeridos.');
       return;
     }
-    if (!isValidEmail(emailData.email)) {
-      setEmailError('Por favor ingresa un correo electrónico válido.');
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailData.email)) {
+      setEmailError('Por favor ingresa un correo válido.');
       return;
     }
 
@@ -104,14 +42,12 @@ export default function ContactCards() {
           text: emailData.message,
         }),
       });
-
       const result = await response.json();
-
       if (result.status === 'sent') {
-        setStatusMessage('Solicitud de email enviada correctamente. En breve te contactaremos.');
+        setStatusMessage('Correo enviado correctamente. En breve te contactaremos.');
         setEmailSent(true);
       } else {
-        setEmailError(result.error || 'Error al enviar el email. Intenta nuevamente.');
+        setEmailError(result.error || 'Error al enviar. Intenta nuevamente.');
       }
     } catch {
       setEmailError('Error de conexión. Intenta nuevamente.');
@@ -120,49 +56,124 @@ export default function ContactCards() {
     }
   };
 
-  const handleSmsSubmit = () => setStatusMessage('Solicitud de SMS registrada correctamente.');
-  const handleWhatsAppOpen = () => window.open('https://api.whatsapp.com/send?phone=+59167023053&text=Hola,%20quiero%20consultar%20sobre%20tus%20servicios', '_blank');
+  const handleSmsSubmit = () => {
+    setStatusMessage('Solicitud enviada. Te contactaremos pronto.');
+  };
 
   return (
-    <section id="contacto" className="section-shell bg-[#f9f9f9] py-6 md:py-8">
+    <section id="contacto" className="py-12 md:py-16" style={{ backgroundColor: '#fdfbf7' }}>
       <div className="page-shell">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
-          <div className="card_w surface-card">
-            <CardHeader bgColor="bg-[#4e8b2f]" icon={<Image src={imgImage} alt="WhatsApp" className="w-4 h-7 object-contain" width={16} height={28} />} title="WHATSAPP" />
-            <div className="p-4">
-              <div className="flex justify-center mb-4">
-                <div className="relative">
-                  <Image src={imgImage1} alt="QR Background" className="w-[180px] h-[180px] object-contain" width={180} height={180} />
-                  <Image src={imgQr2} alt="QR Code" className="absolute top-[1px] left-[1px] w-[180px] h-[180px] object-contain" width={180} height={180} />
-                </div>
-              </div>              
-              <button onClick={handleWhatsAppOpen} className="btn_secondary secondary-action font-semibold text-[14px] leading-[20px] w-full py-2 flex items-center justify-center gap-2">
-                <WhatsAppIcon />Abrir chat
-              </button>
+        <div className="text-center mb-10">
+          <h2 className="text-2xl md:text-3xl mb-3" style={{ fontFamily: "'Playfair Display', serif", color: '#1a1a1a' }}>
+            Contáctanos
+          </h2>
+          <p className="text-gray-500">Escríbenos o escríbenos por WhatsApp</p>
+        </div>
+        
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="bg-white rounded-xl p-6 transition-all hover:-translate-y-1" style={{ boxShadow: '0 2px 12px rgba(0,0,0,0.04)' }}>
+            <div className="flex items-center gap-3 mb-4">
+              <div className="w-10 h-10 rounded-full flex items-center justify-center" style={{ backgroundColor: '#25D366' }}>
+                <WhatsAppIcon className="w-5 h-5 text-white" />
+              </div>
+              <h3 className="font-semibold text-lg" style={{ fontFamily: "'Playfair Display', serif" }}>WhatsApp</h3>
             </div>
+            <p className="text-gray-600 text-sm mb-4">Chatea con nosotros directamente</p>
+            <button onClick={handleWhatsAppOpen} className={BUTTON_STYLE} style={{ backgroundColor: '#25D366', color: 'white' }}>
+              <WhatsAppIcon className="w-5 h-5 mr-2" />
+              Abrir Chat
+            </button>
           </div>
-          <div className="card_e surface-card">
-            <CardHeader bgColor="bg-[#4a6b9d]" icon={<EmailIcon />} title="EMAIL" />
-            <div className="p-4">
-              <FormField label="Tu email:" type="email" placeholder="Tu email" value={emailData.email} onChange={(e) => setEmailData({ ...emailData, email: e.target.value })} className="focus:ring-[#4a6b9d]" />
-              <FormField label="Asunto:" type="text" placeholder="Asunto" value={emailData.subject} onChange={(e) => setEmailData({ ...emailData, subject: e.target.value })} className="focus:ring-[#4a6b9d]" />
-              <label className={LABEL_CLASS}>Mensaje:</label>
-              <textarea placeholder="Tu mensaje" value={emailData.message} onChange={(e) => setEmailData({ ...emailData, message: e.target.value })} className="text_input w-full bg-white border border-[#d9d9d9] rounded-[4px] px-3 py-2 text-[#222] text-[14px] leading-[20px] h-[78px] resize-none focus:outline-none focus:ring-2 focus:ring-[#4a6b9d]" />
-              {emailError && <div className="text-red-600 text-[12px] mb-2">{emailError}</div>}
-              <SubmitButton bgColor="bg-[#4a6b9d]" hoverColor="hover:bg-[#3d5780]" onClick={handleEmailSubmit} disabled={isLoading}>{isLoading ? 'ENVIANDO...' : 'ENVIAR'}</SubmitButton>
+
+          <div className="bg-white rounded-xl p-6 transition-all hover:-translate-y-1" style={{ boxShadow: '0 2px 12px rgba(0,0,0,0.04)' }}>
+            <div className="flex items-center gap-3 mb-4">
+              <div className="w-10 h-10 rounded-full flex items-center justify-center" style={{ backgroundColor: '#2d5016' }}>
+                <svg className="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                </svg>
+              </div>
+              <h3 className="font-semibold text-lg" style={{ fontFamily: "'Playfair Display', serif" }}>Email</h3>
             </div>
+            <input 
+              type="email" 
+              placeholder="Tu email" 
+              value={emailData.email} 
+              onChange={(e) => setEmailData({ ...emailData, email: e.target.value })}
+              className={INPUT_STYLE}
+              style={{ borderColor: '#e8e4dc' }}
+            />
+            <input 
+              type="text" 
+              placeholder="Asunto" 
+              value={emailData.subject} 
+              onChange={(e) => setEmailData({ ...emailData, subject: e.target.value })}
+              className={INPUT_STYLE}
+              style={{ borderColor: '#e8e4dc' }}
+            />
+            <textarea 
+              placeholder="Tu mensaje" 
+              value={emailData.message} 
+              onChange={(e) => setEmailData({ ...emailData, message: e.target.value })}
+              className={INPUT_STYLE}
+              style={{ borderColor: '#e8e4dc', height: '80px', resize: 'none' }}
+            />
+            {emailError && <div className="text-red-600 text-xs mb-2">{emailError}</div>}
+            <button 
+              onClick={handleEmailSubmit} 
+              disabled={isLoading}
+              className={BUTTON_STYLE}
+              style={{ 
+                backgroundColor: '#2d5016', 
+                color: 'white',
+                opacity: isLoading ? 0.7 : 1
+              }}
+            >
+              {isLoading ? 'Enviando...' : 'Enviar'}
+            </button>
           </div>
-          <div className="card_sms surface-card">
-            <CardHeader bgColor="bg-[#5a5e62]" icon={<SmsIcon />} title="SMS" />
-            <div className="p-4">
-              <FormField label="Teléfono:" type="tel" placeholder="Número de teléfono" value={smsData.phone} onChange={(e) => setSmsData({ ...smsData, phone: e.target.value })} className="focus:ring-[#5a5e62]" />
-              <label className={LABEL_CLASS}>Mensaje:</label>
-              <textarea placeholder="Tu mensaje" value={smsData.message} onChange={(e) => setSmsData({ ...smsData, message: e.target.value })} className="text_input w-full bg-white border border-[#d9d9d9] rounded-[4px] px-3 py-2 text-[#222] text-[14px] leading-[20px] h-[78px] resize-none focus:outline-none focus:ring-2 focus:ring-[#5a5e62]" />
-              <SubmitButton bgColor="bg-[#5a5e62]" hoverColor="hover:bg-[#464a4d]" onClick={handleSmsSubmit}>ENVIAR</SubmitButton>
+
+          <div className="bg-white rounded-xl p-6 transition-all hover:-translate-y-1" style={{ boxShadow: '0 2px 12px rgba(0,0,0,0.04)' }}>
+            <div className="flex items-center gap-3 mb-4">
+              <div className="w-10 h-10 rounded-full flex items-center justify-center" style={{ backgroundColor: '#c4a35a' }}>
+                <svg className="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
+                </svg>
+              </div>
+              <h3 className="font-semibold text-lg" style={{ fontFamily: "'Playfair Display', serif" }}>SMS</h3>
             </div>
+            <input 
+              type="tel" 
+              placeholder="Número de teléfono" 
+              value={smsData.phone} 
+              onChange={(e) => setSmsData({ ...smsData, phone: e.target.value })}
+              className={INPUT_STYLE}
+              style={{ borderColor: '#e8e4dc' }}
+            />
+            <textarea 
+              placeholder="Tu mensaje" 
+              value={smsData.message} 
+              onChange={(e) => setSmsData({ ...smsData, message: e.target.value })}
+              className={INPUT_STYLE}
+              style={{ borderColor: '#e8e4dc', height: '80px', resize: 'none' }}
+            />
+            <button 
+              onClick={handleSmsSubmit}
+              className={BUTTON_STYLE}
+              style={{ 
+                backgroundColor: '#c4a35a', 
+                color: 'white'
+              }}
+            >
+              Enviar
+            </button>
           </div>
         </div>
-        {statusMessage && <div className="mt-4 rounded-[4px] border border-[#b7e4a3] bg-[#dff6dd] px-4 py-3 text-[14px] text-[#1e6b2f]">{statusMessage}</div>}
+        
+        {statusMessage && (
+          <div className="mt-6 rounded-lg px-5 py-3 text-center" style={{ backgroundColor: '#d4edda', color: '#155724' }}>
+            {statusMessage}
+          </div>
+        )}
       </div>
     </section>
   );
