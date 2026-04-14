@@ -7,8 +7,8 @@ interface FooterProps {
 
 export default function Footer({ onNavigate: _onNavigate }: FooterProps) {
   return (
-    <footer className="py-10 md:py-14" style={{ backgroundColor: '#1a1a1a', color: '#faf8f4' }}>
-      <div className="page-shell">
+    <footer className="py-10 md:py-14 w-full" style={{ backgroundColor: '#1a1a1a', color: '#faf8f4' }}>
+      <div className="max-w-[1000px] mx-auto px-5 md:px-8">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-10">
           <div className="text-center md:text-left">
             <h3 

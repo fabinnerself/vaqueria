@@ -1,12 +1,21 @@
 import { useState } from 'react';
+import Image from 'next/image';
+import imgQrCode from '../../assets/qr-code.png';
 
-const LABEL_CLASS = "block text-sm font-medium mb-2 text-gray-700";
 const INPUT_STYLE = "w-full bg-white border rounded-lg px-4 py-3 text-gray-800 text-sm mb-3 focus:outline-none transition-all";
 const BUTTON_STYLE = "w-full py-3 rounded-lg font-semibold text-sm transition-all duration-300";
 
+/* ── Proper WhatsApp SVG icon ── */
 const WhatsAppIcon = ({ className = "w-5 h-5" }: { className?: string }) => (
   <svg className={className} fill="currentColor" viewBox="0 0 24 24">
-    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-.61-.318-.91-.492-.309-.187-.537-.349-.749-.609-.174-.225-.063-.375.043-.515.058-.094.148-.197.297-.297.297-.149.297-.297.297-.495 0-.149-.149-.372-.223-.515-.074-.148-.372-.297-.743-.496-.609-.334-1.448-.521-1.973-.521-.297 0-.595.074-.866.223-.271.148-.441.347-.595.571-.148.223-.521.595-.521.743 0,.223.297.495.595.743.297.248.595.372.866.521.223.149.372.223.495.297.123.074.223.148.347.198.123.05.223.074.371.074.149 0 .372-.025.569-.149.197-.124.521-.372.743-.595.222-.223.347-.347.495-.521.148-.174.297-.297.495-.347.198-.05.371-.074.495-.074zM12 22.155c-1.102 0-2.204-.296-3.204-.888-1.93-1.148-3.112-3.13-3.429-5.408-.108-.775-.108-1.584.024-2.373.131-.789.39-1.518.765-2.159l.005.005c.373-.639.848-1.223 1.405-1.725l.003.003c.553-.499 1.195-.905 1.902-1.199.706-.294 1.464-.459 2.241-.459.777 0 1.535.165 2.241.459.707.294 1.349.7 1.902 1.199l.003-.003c.557.502 1.032 1.086 1.405 1.725l.005-.005c.375.641.634 1.37.765 2.159.132.789.132 1.598.024 2.373-.317 2.278-1.499 4.26-3.429 5.408-1 .592-2.102.888-3.204.888h-.024zM8.235 6.938c-.223-.446-.223-.968 0-1.414l1.553-1.576c.217-.221.48-.333.762-.333.282 0 .545.112.762.333l.762.771c.223.224.38.499.451.795.07.296.035.609-.103.889-.138.28-.379.502-.672.619l-.904.356c-.293.115-.493.371-.493.663v1.065c0 .292.2.548.493.663l.904.356c.293.115.534.338.672.619.138.28.173.593.103.889-.071.296-.228.571-.451.795l-.762.771c-.217.221-.48.333-.762.333-.282 0-.545-.112-.762-.333l-1.553-1.576c-.223-.446-.223-.968 0-1.414.223-.447.609-.765 1.068-.883l1.092-.282c.283-.073.483-.329.493-.629v-.356c-.01-.3-.21-.556-.493-.629l-1.092-.282c-.459-.118-.845-.436-1.068-.883z"/>
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.981.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+  </svg>
+);
+
+/* ── Phone icon ── */
+const PhoneIcon = ({ className = "w-5 h-5" }: { className?: string }) => (
+  <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+    <path strokeLinecap="round" strokeLinejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
   </svg>
 );
 
@@ -71,20 +80,68 @@ export default function ContactCards() {
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="bg-white rounded-xl p-6 transition-all hover:-translate-y-1" style={{ boxShadow: '0 2px 12px rgba(0,0,0,0.04)' }}>
+
+          {/* ─── WhatsApp Card ─── */}
+          <div
+            className="bg-white rounded-xl p-6 transition-all duration-300 hover:-translate-y-1 flex flex-col"
+            style={{ boxShadow: '0 2px 12px rgba(0,0,0,0.04)' }}
+          >
+            {/* Header */}
             <div className="flex items-center gap-3 mb-4">
-              <div className="w-10 h-10 rounded-full flex items-center justify-center" style={{ backgroundColor: '#25D366' }}>
-                <WhatsAppIcon className="w-5 h-5 text-white" />
+              <div
+                className="w-10 h-10 rounded-full flex items-center justify-center shrink-0"
+                style={{ backgroundColor: '#25D366' }}
+              >
+                <PhoneIcon className="w-5 h-5 text-white" />
               </div>
-              <h3 className="font-semibold text-lg" style={{ fontFamily: "'Playfair Display', serif" }}>WhatsApp</h3>
+              <div>
+                <h3 className="font-semibold text-lg leading-tight" style={{ fontFamily: "'Playfair Display', serif" }}>
+                  WhatsApp
+                </h3>
+                <p className="text-gray-400 text-xs">+591 670 23 053</p>
+              </div>
             </div>
-            <p className="text-gray-600 text-sm mb-4">Chatea con nosotros directamente</p>
-            <button onClick={handleWhatsAppOpen} className={BUTTON_STYLE} style={{ backgroundColor: '#25D366', color: 'white' }}>
-              <WhatsAppIcon className="w-5 h-5 mr-2" />
+
+            <p className="text-gray-600 text-sm mb-4">
+              Chatea con nosotros directamente o escanea el código QR
+            </p>
+
+            {/* QR Code */}
+            <div
+              className="flex-1 flex items-center justify-center rounded-lg p-3 mb-4"
+              style={{ backgroundColor: '#f8faf6', border: '1px dashed #c8d9be' }}
+            >
+              <div className="relative group/qr">
+                <Image
+                  src={imgQrCode}
+                  alt="Escanea para chatear por WhatsApp"
+                  width={150}
+                  height={150}
+                  className="rounded-md transition-transform duration-300 group-hover/qr:scale-105"
+                  style={{ imageRendering: 'pixelated' }}
+                />
+                {/* subtle WhatsApp badge on the QR */}
+                <div
+                  className="absolute -bottom-2 -right-2 w-7 h-7 rounded-full flex items-center justify-center shadow-md"
+                  style={{ backgroundColor: '#25D366' }}
+                >
+                  <WhatsAppIcon className="w-3.5 h-3.5 text-white" />
+                </div>
+              </div>
+            </div>
+
+            {/* CTA Button */}
+            <button
+              onClick={handleWhatsAppOpen}
+              className={BUTTON_STYLE + " flex items-center justify-center gap-2 hover:brightness-110"}
+              style={{ backgroundColor: '#25D366', color: 'white' }}
+            >
+              <WhatsAppIcon className="w-5 h-5" />
               Abrir Chat
             </button>
           </div>
 
+          {/* ─── Email Card ─── */}
           <div className="bg-white rounded-xl p-6 transition-all hover:-translate-y-1" style={{ boxShadow: '0 2px 12px rgba(0,0,0,0.04)' }}>
             <div className="flex items-center gap-3 mb-4">
               <div className="w-10 h-10 rounded-full flex items-center justify-center" style={{ backgroundColor: '#2d5016' }}>
@@ -132,6 +189,7 @@ export default function ContactCards() {
             </button>
           </div>
 
+          {/* ─── SMS Card ─── */}
           <div className="bg-white rounded-xl p-6 transition-all hover:-translate-y-1" style={{ boxShadow: '0 2px 12px rgba(0,0,0,0.04)' }}>
             <div className="flex items-center gap-3 mb-4">
               <div className="w-10 h-10 rounded-full flex items-center justify-center" style={{ backgroundColor: '#c4a35a' }}>

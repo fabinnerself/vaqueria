@@ -16,13 +16,13 @@ export default function LandingPage({ onNavigate }: LandingPageProps) {
       <div className="max-w-[900px] mx-auto bg-white shadow-sm">
         <Header onNavigate={onNavigate} />
         <main>
-          <HeroSection />          
+          <HeroSection />
           <ProductCards />
           <FAQSection />
           <ContactCards />
         </main>
-        <Footer onNavigate={onNavigate} />
       </div>
+      <Footer onNavigate={onNavigate} />
     </div>
   );
 }

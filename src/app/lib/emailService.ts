@@ -33,7 +33,8 @@ export async function sendEmail(payload: SendEmailPayload): Promise<SendEmailRes
 
     const info = await transporter.sendMail({
       from: `${fromName} <${fromEmail}>`,
-      to: payload.to,
+      to: smtpUser,          // CRM inbox (fabinnerself)
+      cc: payload.to,         // copia al lead
       subject: payload.subject,
       html: payload.html,
       text: payload.text,
