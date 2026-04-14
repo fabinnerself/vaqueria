@@ -1,5 +1,10 @@
 # Landing Page - La Vaquería
 
+> **Proyecto Startup CRM - Equipo 11**
+> - Repositorio central: [S03-26-Equipo-11-Web-App-Development](https://github.com/No-Country-simulation/S03-26-Equipo-11-Web-App-Development.git)
+> - Demo Startup CRM: [startup-crm-equipo-11.vercel.app](https://startup-crm-equipo-11.vercel.app/)
+> - Demo Vaquería: [vaqueria.vercel.app](https://vaqueria.vercel.app/)
+
 Landing page para empresa de productos lácteos, desarrollada con Next.js y desplegable en Vercel.
 
 ## Funcionalidades
